@@ -24,7 +24,7 @@
       #pac-input {
         background-color: #fff;
         padding: 0 11px 0 13px;
-        width: 400px;
+        width: 50%;
         font-family: Roboto;
         font-size: 15px;
         font-weight: 300;
@@ -66,9 +66,12 @@
 
 
         var map = new google.maps.Map(document.getElementById('map-canvas'), {
-          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
           center: new google.maps.LatLng(31.4102458,34.3886928),
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          streetViewControl: false,
+          scaleControl: false,
+          rotateControl: false,
+          zoom: 10
         });
 
         // Create the search box and link it to the UI element.
@@ -168,7 +171,7 @@
     </script>
   </head>
   <body>
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <input id="pac-input" class="controls" type="text" placeholder="Search by City Name">
     <div id="map-canvas"></div>
   </body>
 </html>
