@@ -29,7 +29,6 @@
         font-size: 15px;
         font-weight: 300;
         text-overflow: ellipsis;
-        margin-left: 20px;
       }
 
       #pac-input:focus {
@@ -78,7 +77,7 @@
 
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
         var searchBox = new google.maps.places.SearchBox((input));
 
         // Listen for the event fired when the user selects an item from the
