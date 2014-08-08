@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Gaza Everywhere</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      .controls {
+        margin-top: 16px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        padding: 0 11px 0 13px;
+        width: 400px;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        text-overflow: ellipsis;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+        margin-left: -1px;
+        padding-left: 14px;  /* Regular padding-left + 1. */
+        width: 401px;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+    }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_8ItZygIKhppcpvqMdRM16myWr5xRU38v=3.exp&amp;libraries=places,geometry"></script>
+    <script src="https://cdn.rawgit.com/bramus/google-maps-polygon-moveto/master/js/google.maps.Polygon.getBounds.js"></script>
+    <script src="https://cdn.rawgit.com/bramus/google-maps-polygon-moveto/master/js/google.maps.Polygon.moveTo.js"></script>
+    <script>
+      // This example creates a simple polygon representing the Bermuda Triangle.
+      function initialize() {
+
+        var markers = [];
+
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'), {
+          zoom: 10,
+          center: new google.maps.LatLng(31.4102458,34.3886928),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        var searchBox = new google.maps.places.SearchBox((input));
+
+        // Listen for the event fired when the user selects an item from the
+        // pick list. Retrieve the matching places for that item.
+        google.maps.event.addListener(searchBox, 'places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+          for (var i = 0, marker; marker = markers[i]; i++) {
+            marker.setMap(null);
+          }
+
+          // For each place, get the icon, place name, and location.
+          markers = [];
+          // Create a marker for each place.
+          var marker = new google.maps.Marker({
+            map: map,
+            title: places[0].name,
+            position: places[0].geometry.location
+          });
+
+          markers.push(marker);
+
+          map.setCenter(places[0].geometry.location);
+        });
+
+        var gazaCoords = [
+          new google.maps.LatLng(31.594182039540698, 34.490203857421875),
+          new google.maps.LatLng(31.540650975483548, 34.56693649291992),
+          new google.maps.LatLng(31.533335603314153, 34.565391540527344),
+          new google.maps.LatLng(31.526897601690482, 34.55818176269531),
+          new google.maps.LatLng(31.512556821313215, 34.54719543457031),
+          new google.maps.LatLng(31.503043865128223, 34.52625274658203),
+          new google.maps.LatLng(31.500409336857828, 34.51286315917969),
+          new google.maps.LatLng(31.479916027543375, 34.48488235473633),
+          new google.maps.LatLng(31.47698804541903, 34.4780158996582),
+          new google.maps.LatLng(31.471424626993848, 34.47441101074219),
+          new google.maps.LatLng(31.461907486782405, 34.46428298950195),
+          new google.maps.LatLng(31.443749028676486, 34.44540023803711),
+          new google.maps.LatLng(31.440380540593694, 34.43681716918945),
+          new google.maps.LatLng(31.427198336472603, 34.4256591796875),
+          new google.maps.LatLng(31.41723721962633, 34.4117546081543),
+          new google.maps.LatLng(31.41357477833999, 34.4066047668457),
+          new google.maps.LatLng(31.40185400542644, 34.39321517944336),
+          new google.maps.LatLng(31.3898386940066, 34.37999725341797),
+          new google.maps.LatLng(31.388080226769475, 34.380340576171875),
+          new google.maps.LatLng(31.376795945179563, 34.373130798339844),
+          new google.maps.LatLng(31.374304427605047, 34.373130798339844),
+          new google.maps.LatLng(31.372692233968184, 34.37089920043945),
+          new google.maps.LatLng(31.37005403926066, 34.37278747558594),
+          new google.maps.LatLng(31.36932119425316, 34.37021255493164),
+          new google.maps.LatLng(31.369760901943426, 34.36729431152344),
+          new google.maps.LatLng(31.36419111919158, 34.36471939086914),
+          new google.maps.LatLng(31.306861822087118, 34.37347412109375),
+          new google.maps.LatLng(31.290140312178803, 34.366607666015625),
+          new google.maps.LatLng(31.27855085894653, 34.34257507324219),
+          new google.maps.LatLng(31.261677590216173, 34.33124542236328),
+          new google.maps.LatLng(31.252579445611293, 34.31905746459961),
+          new google.maps.LatLng(31.24039829876376, 34.290218353271484),
+          new google.maps.LatLng(31.219774825076353, 34.26738739013672),
+          new google.maps.LatLng(31.296007846514883, 34.23966407775879),
+          new google.maps.LatLng(31.296521238391374, 34.23545837402344),
+          new google.maps.LatLng(31.323507044116365, 34.21846389770508),
+          new google.maps.LatLng(31.38881292545334, 34.2938232421875),
+          new google.maps.LatLng(31.48957771850194, 34.39990997314453),
+          new google.maps.LatLng(31.53084824620859, 34.43836212158203),
+          new google.maps.LatLng(31.59286607048565, 34.48986053466797)
+        ];
+
+        // Construct the polygon.
+        var gaza = new google.maps.Polygon({
+          paths: gazaCoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          draggable: true
+        });
+
+        gaza.setMap(map);
+
+        google.maps.event.addListener(map, 'center_changed', function() {
+          gaza.moveTo(map.getCenter())
+        });
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map-canvas"></div>
+  </body>
+</html>
