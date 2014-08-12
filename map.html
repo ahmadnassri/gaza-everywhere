@@ -180,6 +180,10 @@
           updateDownloadLink();
         });
 
+        google.maps.event.addListener(map, 'zoom_changed', function() {
+          updateDownloadLink();
+        });
+
         google.maps.event.addListener(map, 'center_changed', function() {
           gaza.moveTo(map.getCenter())
           updateDownloadLink();
