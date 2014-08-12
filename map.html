@@ -10,8 +10,9 @@
         margin: 0px;
         padding: 0px
       }
+
       .controls {
-        margin-top: 16px;
+        margin: 16px 0;
         border: 1px solid transparent;
         border-radius: 2px 0 0 2px;
         box-sizing: border-box;
@@ -19,9 +20,14 @@
         height: 32px;
         outline: none;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: white;
       }
 
-      #pac-input {
+      a.controls {
+        padding: 5px 10px;
+      }
+
+      #search {
         background-color: #fff;
         padding: 0 11px 0 13px;
         width: 50%;
@@ -31,15 +37,10 @@
         text-overflow: ellipsis;
       }
 
-      #pac-input:focus {
+      #search:focus {
         border-color: #4d90fe;
         margin-left: -1px;
         padding-left: 14px;  /* Regular padding-left + 1. */
-        width: 401px;
-      }
-
-      .pac-container {
-        font-family: Roboto;
       }
 
       #type-selector {
@@ -56,6 +57,7 @@
     }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ36GTzgDWQFh3ofW9F2FuNi6xeX5BzY0&amp;v=3.exp&amp;libraries=places,geometry"></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=places,geometry"></script>-->
     <script src="https://cdn.rawgit.com/bramus/google-maps-polygon-moveto/master/js/google.maps.Polygon.getBounds.js"></script>
     <script src="https://cdn.rawgit.com/bramus/google-maps-polygon-moveto/master/js/google.maps.Polygon.moveTo.js"></script>
     <script>
@@ -63,7 +65,6 @@
       function initialize() {
 
         var markers = [];
-
 
         var map = new google.maps.Map(document.getElementById('map-canvas'), {
           mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -76,9 +77,22 @@
         });
 
         // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
-        var searchBox = new google.maps.places.SearchBox((input));
+        var search = document.getElementById('search');
+        var download = document.getElementById('download');
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(search);
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(download);
+        var searchBox = new google.maps.places.SearchBox(search);
+
+        function updateDownloadLink () {
+          var coords = [];
+          gaza.getPath().forEach(function (element, index) {
+            coords.push(element.toUrlValue());
+          });
+
+          var url = 'http://maps.googleapis.com/maps/api/staticmap?maptype=roadmap&format=png32&center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom() + '&size=500x500&path=color:0xFF0000|fillcolor:0xFF0000|' + coords.join('|');
+
+          download.href = url;
+        }
 
         // Listen for the event fired when the user selects an item from the
         // pick list. Retrieve the matching places for that item.
@@ -163,16 +177,24 @@
 
         gaza.setMap(map);
 
+        google.maps.event.addListener(gaza, 'dragend', function() {
+          updateDownloadLink();
+        });
+
         google.maps.event.addListener(map, 'center_changed', function() {
           gaza.moveTo(map.getCenter())
+          updateDownloadLink();
         });
+
+        updateDownloadLink();
       }
 
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
   </head>
   <body>
-    <input id="pac-input" class="controls" type="text" placeholder="Search by City Name">
+    <input id="search" class="controls" type="text" placeholder="Search by City Name"/>
+    <a id="download" class="controls" download>Download Map</a>
     <div id="map-canvas"></div>
   </body>
 </html>
