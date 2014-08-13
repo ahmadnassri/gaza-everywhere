@@ -14,7 +14,7 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     });
 
     // set the download link
-    download.href = 'http://maps.googleapis.com/maps/api/staticmap?maptype=roadmap&format=png32&center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom() + '&size=500x500&path=color:0xFF0000|fillcolor:0xFF0000|' + coords.join('|');
+    download.href = 'http://maps.googleapis.com/maps/api/staticmap?maptype=roadmap&format=png32&center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom() + '&size=500x500&path=color:0xFF0000|fillcolor:0xFF0000|weight:2|' + coords.join('|');
 
     // modern browsers only
     if (history.pushState) {
@@ -149,6 +149,7 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
 
   google.maps.event.addListener(map, 'projection_changed', function() {
     gaza.moveTo(map.getCenter());
+    updateDownloadLink();
   });
 
   google.maps.event.addListener(map, 'dragend', function() {
