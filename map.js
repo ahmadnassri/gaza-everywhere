@@ -4,7 +4,7 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
   var controls = document.getElementById('controls');
   var defaults = {
     zoom: 10,
-    center: '31.4102458,34.3886928'
+    center: '31.407902,34.394186'
   };
 
   var updateDownloadLink = function () {
