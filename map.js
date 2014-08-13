@@ -175,7 +175,10 @@ function resizeContent () {
   var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 
   // resize viewport
-  document.getElementById('content').style.height = (height - document.getElementsByTagName('header')[0].offsetHeight - 30) + 'px';
+  var newHeight = height - document.getElementsByTagName('header')[0].offsetHeight - 30
+  if (newHeight > 480) {
+    document.getElementById('content').style.height = newHeight + 'px';
+  }
 }
 
 window.addEventListener('load', resizeContent);
