@@ -176,9 +176,12 @@ function resizeContent () {
   var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 
   // resize viewport
-  var newHeight = height - document.getElementsByTagName('header')[0].offsetHeight - 30
+  var newHeight = height - document.getElementsByTagName('header')[0].offsetHeight - 30;
+
   if (newHeight > 480) {
     document.getElementById('content').style.height = newHeight + 'px';
+
+    document.getElementById('twitter').style.height = (newHeight - document.getElementsByClassName('list-group')[0].offsetHeight - 20) + 'px';
   }
 }
 

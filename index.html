@@ -93,14 +93,25 @@
         margin-bottom: 0;
       }
 
-      #controls {
-        width: 100%;
+      .list-group-item > .label {
+        float: right;
       }
 
       .btn {
         margin: 0 0 5px 5px;
       }
-    }
+
+      .badge-danger {
+        background-color: #d9534f;
+      }
+
+      .badge-warning {
+        background-color: #f0ad4e;
+      }
+
+      #controls {
+        width: 100%;
+      }
     </style>
   </head>
 
@@ -154,7 +165,31 @@
 
       <div class="col-lg-3 col-md-3 full-height">
         <br class="visible-xs"/>
-        <a class="twitter-timeline" href="https://twitter.com/search?q=http%3A%2F%2Fwww.ahmadnassri.com%2Flabs%2Fgaza-everywhere%2F" data-widget-id="499522635378589696"></a>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="badge badge-danger">360 km<sup><small>2</small></sup></span> Area <small><em>(Metric)</em></small>
+          </li>
+
+          <li class="list-group-item">
+            <span class="badge badge-warning">139 sq mi</span> Area <small><em>(Imperial)</em></small>
+          </li>
+
+          <li class="list-group-item">
+            <span class="badge badge-danger">1,816,379</span> Population <small><em>(2014)</em></small>
+          </li>
+
+          <li class="list-group-item">
+            <span class="badge badge-danger">5046/km<sup><small>2</small></sup></span> Density <small><em>(Metric)</em></small>
+          </li>
+
+          <li class="list-group-item">
+            <span class="badge badge-warning">13,069.1/sq mi</span> Density <small><em>(Imperial)</em></small>
+          </li>
+        </ul>
+
+        <div id="twitter">
+          <a class="twitter-timeline" href="https://twitter.com/search?q=http%3A%2F%2Fwww.ahmadnassri.com%2Flabs%2Fgaza-everywhere%2F" data-widget-id="499522635378589696"></a>
+        </div>
       </div>
     </div>
 
