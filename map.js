@@ -171,12 +171,12 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
   });
 });
 
-function resizeBody () {
+function resizeContent () {
   var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 
   // resize viewport
-  document.body.style.height = (height - document.getElementsByTagName('header')[0].offsetHeight) + 'px';
+  document.getElementById('content').style.height = (height - document.getElementsByTagName('header')[0].offsetHeight - 30) + 'px';
 }
 
-window.addEventListener('load', resizeBody);
-window.addEventListener('resize', resizeBody);
+window.addEventListener('load', resizeContent);
+window.addEventListener('resize', resizeContent);
