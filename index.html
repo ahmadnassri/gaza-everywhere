@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="full-height" lang="en" itemscope itemtype="http://schema.org/Article">
+  <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+
+    <title>Gaza Everywhere</title>
+
+    <meta name="author" content="Ahmad Nassri"/>
+    <meta name="description" content="A simple map app to help visualize Gaza's relative size in comparison to locations around the world."/>
+
+    <meta itemprop="name" content="Gaza Everywhere"/>
+    <meta itemprop="description" content="A simple map app to help visualize Gaza's relative size in comparison to locations around the world."/>
+    <meta itemprop="image" content="http://www.ahmadnassri.com/assets/images/labs/gaza-everywhere.jpg"/>
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="fb:admins" content="227304446"/>
+    <meta property="og:site_name" content="Gaza Everywhere"/>
+    <meta property="og:title" content="Gaza Everywhere"/>
+    <meta property="og:description" content="A simple map app to help visualize Gaza's relative size in comparison to locations around the world."/>
+    <meta property="og:url" content="http://www.ahmadnassri.com/labs/gaza-everywhere/"/>
+    <meta property="og:image" content="http://www.ahmadnassri.com/assets/images/labs/gaza-everywhere.jpg"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@AhmadNassri"/>
+    <meta name="twitter:creator" content="@AhmadNassri"/>
+    <meta name="twitter:domain" content="ahmadnassri.com"/>
+    <meta name="twitter:title" content="Gaza Everywhere"/>
+    <meta name="twitter:description" content="A simple map app to help visualize Gaza's relative size in comparison to locations around the world."/>
+    <meta name="twitter:image:src" content="http://www.ahmadnassri.com/assets/images/labs/gaza-everywhere.jpg"/>
+    <meta name="twitter:url" content="http://www.ahmadnassri.com/labs/gaza-everywhere/">
+
+    <link rel="canonical" href="http://www.ahmadnassri.com/labs/gaza-everywhere/"/>
+    <link rel="author" href="http://www.ahmadnassri.com/about"/>
+
+    <link rel="stylesheet" type="text/css" media="all" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"/>
+    <link rel="stylesheet" type="text/css" media="all" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.2.1/bootstrap-social.min.css"/>
+
+    <style type="text/css">
+      .full-height {
+        height: 100%;
+      }
+
+      .no-radius {
+        border-radius: 0 !important;
+      }
+
+      body {
+        margin: 0;
+        padding: 20px 0;
+        font-family: Roboto,sans-serif;
+      }
+
+      h1 {
+        margin-top: 0;
+        font-weight: 300;
+        font-family: Roboto,sans-serif;
+      }
+
+      .panel {
+        position: relative;
+        margin-bottom: 0;
+      }
+
+      .panel-heading {
+        position: absolute;
+        z-index: 1000;
+        top: 0;
+
+        width: 100%;
+      }
+
+      .panel-footer {
+        position: absolute;
+        z-index: 1000;
+        bottom: 0;
+
+        width: 100%;
+      }
+
+      .panel-body {
+        padding: 0;
+      }
+
+      .help-block {
+        margin-bottom: 0;
+      }
+
+      #controls {
+        width: 100%;
+      }
+
+      .btn {
+        margin: 0 0 5px 5px;
+        min-width: 120px;
+      }
+    }
+    </style>
+  </head>
+
+  <body class="container-fluid">
+    <header>
+      <h1>Gaza Everywhere</h1>
+      <p>A simple map app to help visualize <a href="http://en.wikipedia.org/wiki/Gaza_Strip">Gaza</a>'s relative size in comparison to locations around the world. <small><em>By <a href="http://www.ahmadnassri.com/">Ahmad Nassri.</a></em></small></p>
+    </header>
+
+    <div class="row full-height">
+      <div class="full-height col-lg-9 col-md-9">
+        <div class="panel panel-default full-height no-radius">
+          <div class="panel-heading no-radius">
+            <input id="search" class="form-control no-radius" type="text" placeholder="Search by City Name"/>
+            <span class="help-block"><small><em>Drag the map around, or simply search for a location name and the map will automatically center on it.</em></small></span>
+          </div>
+
+          <div class="panel-body full-height">
+            <div id="map" class="full-height"></div>
+          </div>
+
+          <div class="panel-footer no-radius">
+            <a id="download" class="btn btn-default btn-sm btn-social no-radius" download><i class="fa fa-download"></i> Download Map</a>
+
+            <a class="btn btn-default btn-share btn-sm btn-social btn-twitter no-radius" href="https://twitter.com/intent/tweet?url={url}&amp;text={text}&amp;via=AhmadNassri&amp;hashtags=#Gaza,#Map&amp;related=@CodeInChaos">
+              <i class="fa fa-twitter"></i> Post to Twitter
+            </a>
+
+            <a class="btn btn-default btn-share btn-sm btn-social btn-facebook no-radius" href="https://www.facebook.com/sharer/sharer.php?u={url}">
+              <i class="fa fa-facebook"></i> Share on Facebook
+            </a>
+
+            <a class="btn btn-default btn-share btn-sm btn-social btn-google-plus no-radius" href="https://plus.google.com/share?url={url}&amp;hl=en">
+              <i class="fa fa-google-plus"></i> Share on Google+
+            </a>
+
+            <a class="btn btn-default btn-share btn-sm btn-social btn-linkedin no-radius" href="http://www.linkedin.com/shareArticle?url={url}&amp;title={text}">
+              <i class="fa fa-linkedin"></i> Share on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-3 full-height">
+        <a class="twitter-timeline" href="https://twitter.com/search?q=http%3A%2F%2Fwww.ahmadnassri.com%2Flabs%2Fgaza-everywhere%2F" data-widget-id="499522635378589696"></a>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ36GTzgDWQFh3ofW9F2FuNi6xeX5BzY0&amp;v=3.exp&amp;libraries=places,geometry"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/bramus/google-maps-polygon-moveto/master/js/google.maps.Polygon.getBounds.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/bramus/google-maps-polygon-moveto/master/js/google.maps.Polygon.moveTo.js"></script>
+    <script type="text/javascript" src="map.js"></script>
+
+    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    <script type="text/javascript">
+      twttr.events.bind('loaded', function (event) {
+        event.widgets.forEach(function (widget) {
+          widget.style.width = '100%'
+          widget.style.height = '100%'
+        });
+      });
+    </script>
+  </body>
+</html>
