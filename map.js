@@ -23,6 +23,10 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
       // update url
       history.replaceState({}, document.title, path);
     }
+
+    // update embed link
+    var code = document.getElementsByTagName('pre')[0];
+    code.innerHTML = '&lt;iframe width="1280" height="720" src="{url}" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;'.replace('{url}', window.location.href);
   }
 
   // polygon

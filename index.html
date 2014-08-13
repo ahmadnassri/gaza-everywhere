@@ -96,7 +96,6 @@
 
       .btn {
         margin: 0 0 5px 5px;
-        min-width: 120px;
       }
     }
     </style>
@@ -123,20 +122,28 @@
           <div class="panel-footer no-radius">
             <a id="download" class="btn btn-default btn-sm btn-social no-radius" download><i class="fa fa-download"></i> Download Map</a>
 
-            <a class="btn btn-default btn-share btn-sm btn-social btn-twitter no-radius" href="https://twitter.com/intent/tweet?url={url}&amp;text={text}&amp;via=AhmadNassri&amp;hashtags=#Gaza,#Map&amp;related=@CodeInChaos">
+            <a class="btn btn-share btn-sm btn-social btn-twitter no-radius" href="https://twitter.com/intent/tweet?url={url}&amp;text={text}&amp;via=AhmadNassri&amp;hashtags=#Gaza,#Map&amp;related=@CodeInChaos">
               <i class="fa fa-twitter"></i> Post to Twitter
             </a>
 
-            <a class="btn btn-default btn-share btn-sm btn-social btn-facebook no-radius" href="https://www.facebook.com/sharer/sharer.php?u={url}">
+            <a class="btn btn-share btn-sm btn-social btn-facebook no-radius" href="https://www.facebook.com/sharer/sharer.php?u={url}">
               <i class="fa fa-facebook"></i> Share on Facebook
             </a>
 
-            <a class="btn btn-default btn-share btn-sm btn-social btn-google-plus no-radius" href="https://plus.google.com/share?url={url}&amp;hl=en">
+            <a class="btn btn-share btn-sm btn-social btn-google-plus no-radius" href="https://plus.google.com/share?url={url}&amp;hl=en">
               <i class="fa fa-google-plus"></i> Share on Google+
             </a>
 
-            <a class="btn btn-default btn-share btn-sm btn-social btn-linkedin no-radius" href="http://www.linkedin.com/shareArticle?url={url}&amp;title={text}">
+            <a class="btn btn-share btn-sm btn-social btn-linkedin no-radius" href="http://www.linkedin.com/shareArticle?url={url}&amp;title={text}">
               <i class="fa fa-linkedin"></i> Share on LinkedIn
+            </a>
+
+            <a class="btn btn-info btn-sm btn-social no-radius" data-toggle="modal" data-target="#embed">
+              <i class="fa fa-code"></i> Embed
+            </a>
+
+            <a class="btn btn-sm btn-social btn-github no-radius" href="https://github.com/ahmadnassri/gaza-everywhere">
+              <i class="fa fa-github"></i> View Source
             </a>
           </div>
         </div>
@@ -147,9 +154,32 @@
       </div>
     </div>
 
+    <div id="embed" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Embed Code</h4>
+          </div>
+
+          <div class="modal-body">
+            <pre></pre>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ36GTzgDWQFh3ofW9F2FuNi6xeX5BzY0&amp;v=3.exp&amp;libraries=places,geometry"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/bramus/google-maps-polygon-moveto/master/js/google.maps.Polygon.getBounds.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/bramus/google-maps-polygon-moveto/master/js/google.maps.Polygon.moveTo.js"></script>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
     <script type="text/javascript" src="map.js"></script>
 
     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
