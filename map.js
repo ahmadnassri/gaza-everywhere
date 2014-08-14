@@ -180,9 +180,9 @@ function resizeContent () {
 
   if (newHeight > 640) {
     document.getElementById('content').style.height = newHeight + 'px';
-
-    document.getElementById('twitter').style.height = (newHeight - document.getElementsByClassName('list-group')[0].offsetHeight - 20) + 'px';
   }
+  
+  document.getElementById('twitter').style.minHeight = (newHeight - document.getElementsByClassName('list-group')[0].offsetHeight - 20) + 'px';
 }
 
 window.addEventListener('load', resizeContent);
