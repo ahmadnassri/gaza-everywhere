@@ -178,7 +178,7 @@ function resizeContent () {
   // resize viewport
   var newHeight = height - document.getElementsByTagName('header')[0].offsetHeight - 30;
 
-  if (newHeight > 480) {
+  if (newHeight > 640) {
     document.getElementById('content').style.height = newHeight + 'px';
 
     document.getElementById('twitter').style.height = (newHeight - document.getElementsByClassName('list-group')[0].offsetHeight - 20) + 'px';
