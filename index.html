@@ -112,11 +112,11 @@
       #controls {
         width: 100%;
       }
-      
+
       #content {
         height: 500px;
       }
-      
+
       #twitter {
         min-height: 300px;
       }
@@ -233,8 +233,9 @@
     <script type="text/javascript">
       twttr.events.bind('loaded', function (event) {
         event.widgets.forEach(function (widget) {
-          widget.style.width = '100%'
-          widget.style.height = '100%'
+          widget.style.width = '100%';
+          widget.style.height = '100%';
+          widget.style.minHeight = '30px';
         });
       });
     </script>
