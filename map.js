@@ -23,7 +23,7 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     });
 
     // set the download link
-    download.href = 'http://maps.googleapis.com/maps/api/staticmap?maptype=' + map.getMapTypeId() + '&format=png32&center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom() + '&size=500x500&path=color:0xFF0000|fillcolor:0xFF0000|weight:2|' + coords.join('|');
+    download.href = 'http://maps.googleapis.com/maps/api/staticmap?maptype=' + map.getMapTypeId() + '&format=png32&center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom() + '&size=640x360&scale=2&path=color:0xFF0000|fillcolor:0xFF0000|weight:2|' + coords.join('|');
 
     // modern browsers only
     if (history.pushState) {
