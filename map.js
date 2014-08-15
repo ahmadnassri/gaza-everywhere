@@ -134,7 +134,8 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     strokeWeight: 2,
     fillColor: '#FF0000',
     fillOpacity: 0.35,
-    draggable: true
+    draggable: true,
+    geodesic: true
   });
 
   // move to center (in case of query string params)
