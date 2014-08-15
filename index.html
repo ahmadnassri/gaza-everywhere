@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="full-height" lang="en" itemscope itemtype="http://schema.org/Article">
+<html lang="en" itemscope itemtype="http://schema.org/Article">
   <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -41,10 +41,6 @@
     <link rel="stylesheet" type="text/css" media="all" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.2.1/bootstrap-social.min.css"/>
 
     <style type="text/css">
-      .full-height {
-        height: 100%;
-      }
-
       .no-radius {
         border-radius: 0 !important;
       }
@@ -66,22 +62,6 @@
         margin-bottom: 0;
 
         min-height: 200px;
-      }
-
-      .panel-heading {
-        position: absolute;
-        z-index: 1000;
-        top: 0;
-
-        width: 100%;
-      }
-
-      .panel-footer {
-        position: absolute;
-        z-index: 1000;
-        bottom: 0;
-
-        width: 100%;
       }
 
       .panel-body {
@@ -109,32 +89,28 @@
         background-color: #f0ad4e;
       }
 
-      #controls {
-        width: 100%;
-      }
-
-      #content {
-        height: 500px;
+      #map {
+        height: 300px;
       }
     </style>
   </head>
 
-  <body class="full-height container-fluid">
+  <body class="container-fluid">
     <header>
       <h1>Gaza Everywhere</h1>
       <p>A simple map app to help visualize <a href="http://en.wikipedia.org/wiki/Gaza_Strip">Gaza</a>'s relative size in comparison to locations around the world. <small><em>By <a href="http://www.ahmadnassri.com/">Ahmad Nassri.</a></em></small></p>
     </header>
 
     <div id="content" class="row">
-      <div class="full-height col-lg-9 col-md-9 col-sm-9">
-        <div class="panel panel-default full-height no-radius">
+      <div class="col-lg-9 col-md-9 col-sm-9">
+        <div class="panel panel-default no-radius">
           <div class="panel-heading no-radius">
             <input id="search" class="form-control no-radius" type="text" placeholder="Search by City Name"/>
             <span class="help-block hidden-xs"><small><em>Drag the map around, or simply search for a location name and the map will automatically center on it.</em></small></span>
           </div>
 
-          <div class="panel-body full-height">
-            <div id="map" class="full-height"></div>
+          <div class="panel-body">
+            <div id="map"></div>
           </div>
 
           <div class="panel-footer no-radius">
@@ -167,8 +143,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-3 col-sm-3 full-height">
-        <br class="visible-xs"/>
+      <div class="col-lg-3 col-md-3 col-sm-3">
         <ul class="list-group no-radius">
           <li class="list-group-item no-radius">
             <span class="badge badge-danger">360 km<sup><small>2</small></sup></span> Area <small><em>(Metric)</em></small>

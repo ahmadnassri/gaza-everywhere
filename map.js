@@ -1,4 +1,6 @@
 google.maps.event.addDomListener(window, 'load', function initialize() {
+  // variables
+
   var search = document.getElementById('search');
   var download = document.getElementById('download');
   var controls = document.getElementById('controls');
@@ -7,14 +9,21 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     center: '31.407902,34.394186'
   };
 
-  var updateDownloadLink = function () {
+  // functions
+
+  function movePoly () {
+    gaza.moveTo(map.getCenter());
+    updateDownloadLink();
+  }
+
+  function updateDownloadLink () {
     var coords = [];
     gaza.getPath().forEach(function (element, index) {
       coords.push(element.toUrlValue());
     });
 
     // set the download link
-    download.href = 'http://maps.googleapis.com/maps/api/staticmap?maptype=roadmap&format=png32&center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom() + '&size=500x500&path=color:0xFF0000|fillcolor:0xFF0000|weight:2|' + coords.join('|');
+    download.href = 'http://maps.googleapis.com/maps/api/staticmap?maptype=' + map.getMapTypeId() + '&format=png32&center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom() + '&size=500x500&path=color:0xFF0000|fillcolor:0xFF0000|weight:2|' + coords.join('|');
 
     // modern browsers only
     if (history.pushState) {
@@ -30,6 +39,7 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
   }
 
   // polygon
+
   var gazaCoords = [
     new google.maps.LatLng(31.594182039540698, 34.490203857421875),
     new google.maps.LatLng(31.540650975483548, 34.56693649291992),
@@ -90,10 +100,16 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     center: new google.maps.LatLng(defaults.center[0], defaults.center[1]),
 
-    streetViewControl: false,
     scaleControl: false,
     rotateControl: false,
-    mapTypeControl: false,
+    streetViewControl: false,
+
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+      mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE],
+      position: google.maps.ControlPosition.TOP_RIGHT
+    },
+
 
     panControl: true,
     panControlOptions: {
@@ -129,7 +145,7 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
 
   // events
 
-  google.maps.event.addListener(searchBox, 'places_changed', function() {
+  google.maps.event.addListener(searchBox, 'places_changed', function search () {
     var places = searchBox.getPlaces();
 
     if (places.length !== 0) {
@@ -139,23 +155,47 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     }
   });
 
-  google.maps.event.addListener(gaza, 'dragend', function() {
-    updateDownloadLink();
+
+  google.maps.event.addListener(map, 'dragend', movePoly);
+  google.maps.event.addListener(map, 'zoom_changed', movePoly);
+  google.maps.event.addListener(map, 'projection_changed', movePoly);
+  google.maps.event.addListener(map, 'zoom_changed', updateDownloadLink);
+
+  google.maps.event.addListener(gaza, 'dragend', updateDownloadLink);
+  /*
+  google.maps.event.addListener(gaza, 'click', function rotate () {
+    var original = map.getCenter();
+
+    for (i in gazaCoords) {
+      gazaCoords[i] = rotateLatLng(gazaCoords[i].lat(), gazaCoords[i].lng(), 90);
+    }
+
+    gaza.setPaths(gazaCoords);
   });
 
-  google.maps.event.addListener(map, 'zoom_changed', function() {
-    updateDownloadLink();
-  });
+  function rotateLatLng (pointLat, pointLng, angle) {
+    var pos = map.getCenter();
+    var theX = pointLat;
+    var theY = pointLng;
+    var rotationTheta = angle;
+    var rotationOriginX = pos.lat();
+    var rotationOriginY = pos.lng();
+    var rotationThetaRad = rotationTheta*(Math.PI/180);
 
-  google.maps.event.addListener(map, 'projection_changed', function() {
-    gaza.moveTo(map.getCenter());
-    updateDownloadLink();
-  });
+    var newX;
+    var newY;
 
-  google.maps.event.addListener(map, 'dragend', function() {
-    gaza.moveTo(map.getCenter());
-    updateDownloadLink();
-  });
+    if (rotationOriginX == 0 && rotationOriginY == 0) {
+      newX = theX * Math.cos(rotationThetaRad) - Math.sin(rotationThetaRad) * theY;
+      newY = theX * Math.sin(rotationThetaRad) + Math.cos(rotationThetaRad) * theY;
+    } else {
+      newX = (theX - rotationOriginX) * Math.cos(rotationThetaRad) - (theY - rotationOriginY) * Math.sin(rotationTheta) + rotationOriginX;
+      newY = (theX - rotationOriginX) * Math.sin(rotationThetaRad) + (theY - rotationOriginY) * Math.cos(rotationTheta) + rotationOriginY;
+    }
+
+    return new google.maps.LatLng(newX,newY);
+  }
+  */
 
   // share buttons
   Array.prototype.forEach.call(document.getElementsByClassName('btn-share'), function addEventListener (button) {
@@ -173,16 +213,19 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
 });
 
 function resizeContent () {
-  var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+  var header = document.getElementsByTagName('header')[0].offsetHeight;
+  var panelFooter = document.getElementsByClassName('panel-footer')[0].offsetHeight;
+  var panelHeading = document.getElementsByClassName('panel-heading')[0].offsetHeight;
 
   // resize viewport
-  var newHeight = height - document.getElementsByTagName('header')[0].offsetHeight - 30;
+  var newHeight = screenHeight - (header + panelFooter + panelHeading + 30);
 
-  if (newHeight > 640) {
-    document.getElementById('content').style.height = newHeight + 'px';
+  if (newHeight > 300) {
+    document.getElementById('map').style.height = newHeight + 'px';
   }
 
-  document.getElementById('twitter').style.height = (newHeight - document.getElementsByClassName('list-group')[0].offsetHeight - 20) + 'px';
+  document.getElementById('twitter').style.height = (screenHeight - (header + document.getElementsByClassName('list-group')[0].offsetHeight + 30 + 20 - 2)) + 'px';
 }
 
 window.addEventListener('load', resizeContent);
