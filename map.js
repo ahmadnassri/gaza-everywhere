@@ -200,7 +200,7 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
 
   // share buttons
   Array.prototype.forEach.call(document.getElementsByClassName('btn-share'), function addEventListener (button) {
-    button.addEventListener('click', function click () {
+    button.addEventListener('click', function click (event) {
       event.preventDefault();
 
       var link = this.href;
@@ -209,6 +209,8 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
       link = link.replace('{text}', encodeURIComponent('Gaza Everywhere: Compare the size of #Gaza to your city'));
 
       window.open(link, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+
+      return false;
     });
   });
 });
