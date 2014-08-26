@@ -2,8 +2,10 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
   // variables
 
   var search = document.getElementById('search');
+  var slider = document.getElementById('slider');
   var download = document.getElementById('download');
   var controls = document.getElementById('controls');
+
   var defaults = {
     zoom: 10,
     center: '31.407902,34.394186'
@@ -163,17 +165,71 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
   google.maps.event.addListener(map, 'zoom_changed', updateDownloadLink);
 
   google.maps.event.addListener(gaza, 'dragend', updateDownloadLink);
-  /*
-  google.maps.event.addListener(gaza, 'click', function rotate () {
-    var original = map.getCenter();
 
-    for (i in gazaCoords) {
-      gazaCoords[i] = rotateLatLng(gazaCoords[i].lat(), gazaCoords[i].lng(), 90);
+  var distanceTo = function (pointA, pointB) {
+    var distance, x0, y0, x1, y1, result;
+    x0 = pointA.lat();
+    y0 = pointA.lng();
+    x1 = pointB.lat();
+    y1 = pointB.lng();
+
+    return Math.sqrt(Math.pow(x0 - x1, 2) + Math.pow(y0 - y1, 2));
+  };
+
+  var rotatePoint = function (angle, point, origin) {
+    angle *= Math.PI / 180;
+    var radius = distanceTo(point, origin);
+    var theta = angle + Math.atan2(point.lng() - origin.lng(), point.lat() - origin.lat());
+    var x = origin.lat() + (radius * Math.cos(theta));
+    var y = origin.lng() + (radius * Math.sin(theta));
+    return new google.maps.LatLng(x, y);
+  };
+
+  var getCenter = function (polygonCoords) {
+    var bounds = new google.maps.LatLngBounds();
+    var i;
+
+    for (i = 0; i < polygonCoords.length; i++) {
+      bounds.extend(polygonCoords[i]);
     }
 
-    gaza.setPaths(gazaCoords);
+    // The Center of the Bermuda Triangle - (25.3939245, -72.473816)
+    return bounds.getCenter();
+  }
+
+  google.maps.event.addListener(gaza, 'click', function rotate () {
+    var coords = gaza.getPaths().pop().getArray();
+
+    var origin = getCenter(coords);
+
+    coords.forEach(function (point, index) {
+      coords[index] = rotatePoint(point, origin);
+    });
+
+    gaza.setPaths(coords);
   });
 
+  Array.prototype.forEach.call(document.getElementsByClassName('btn-rotate'), function addEventListener (button) {
+    button.addEventListener('click', function slide (event) {
+      event.preventDefault();
+
+      var angle = Number(this.dataset.angle) * 10;
+
+      var coords = gaza.getPaths().pop().getArray();
+
+      var origin = getCenter(coords);
+
+      coords.forEach(function (point, index) {
+        coords[index] = rotatePoint(angle, point, origin);
+      });
+
+      gaza.setPaths(coords);
+
+      updateDownloadLink();
+    });
+  });
+
+  /*
   function rotateLatLng (pointLat, pointLng, angle) {
     var pos = map.getCenter();
     var theX = pointLat;
