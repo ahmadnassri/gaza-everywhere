@@ -35,68 +35,10 @@
     <link rel="canonical" href="http://ahmadnassri.github.io/gaza-everywhere/"/>
     <link rel="author" href="http://www.ahmadnassri.com/about"/>
 
-    <link rel="stylesheet" type="text/css" media="all" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" media="all" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"/>
+
     <link rel="stylesheet" type="text/css" media="all" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.2.1/bootstrap-social.min.css"/>
-
-    <style type="text/css">
-      .no-radius {
-        border-radius: 0 !important;
-      }
-
-      body {
-        margin: 0;
-        padding: 10px 0 0 0;
-        font-family: Roboto,sans-serif;
-      }
-
-      h1 {
-        margin-top: 0;
-        font-weight: 300;
-        font-family: Roboto,sans-serif;
-      }
-
-      .panel {
-        position: relative;
-        margin-bottom: 0;
-
-        min-height: 200px;
-      }
-
-      .panel-body {
-        min-height: 200px;
-        padding: 0;
-      }
-
-      .help-block {
-        margin-bottom: 0;
-      }
-
-      .list-group-item > .label {
-        float: right;
-      }
-
-      .btn {
-        margin: 0 0 5px 5px;
-      }
-
-      .badge-danger {
-        background-color: #d9534f;
-      }
-
-      .badge-warning {
-        background-color: #f0ad4e;
-      }
-
-      .form-group {
-        margin-bottom: 0;
-      }
-
-      #map {
-        height: 300px;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" media="all" href="style.css"/>
   </head>
 
   <body class="container-fluid">
@@ -119,8 +61,8 @@
                 <label>Rotate</label>
 
                 <div class="btn-group btn-block">
-                  <button data-angle="-1" class="btn btn-default btn-rotate no-radius"><i class="fa fa-rotate-left"></i></button>
-                  <button data-angle="+1" class="btn btn-default btn-rotate no-radius"><i class="fa fa-rotate-right"></i></button>
+                  <button data-angle="-10" class="btn btn-default btn-rotate no-radius"><i class="fa fa-rotate-left"></i></button>
+                  <button data-angle="+10" class="btn btn-default btn-rotate no-radius"><i class="fa fa-rotate-right"></i></button>
                 </div>
               </div>
             </form>
@@ -210,13 +152,8 @@
     </div>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ36GTzgDWQFh3ofW9F2FuNi6xeX5BzY0&amp;v=3.exp&amp;libraries=places,geometry"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bramus/google-maps-polygon-moveto/master/js/google.maps.Polygon.getBounds.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bramus/google-maps-polygon-moveto/master/js/google.maps.Polygon.moveTo.js"></script>
 
-    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="map.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 
     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
     <script type="text/javascript">

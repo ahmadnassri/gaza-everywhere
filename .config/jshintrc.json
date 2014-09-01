@@ -1,0 +1,13 @@
+{
+  "browser": true,
+  "globals": {
+    "module": true,
+    "require": true
+  },
+  "immed": true,
+  "latedef": true,
+  "newcap": true,
+  "node": false,
+  "quotmark": "single",
+  "sub": true
+}

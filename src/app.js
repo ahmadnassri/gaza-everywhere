@@ -195,7 +195,7 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
 
     // The Center of the Bermuda Triangle - (25.3939245, -72.473816)
     return bounds.getCenter();
-  }
+  };
 
   google.maps.event.addListener(gaza, 'click', function rotate () {
     var coords = gaza.getPaths().pop().getArray();
@@ -203,17 +203,19 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     var origin = getCenter(coords);
 
     coords.forEach(function (point, index) {
-      coords[index] = rotatePoint(point, origin);
+      coords[index] = rotatePoint(10, point, origin);
     });
 
     gaza.setPaths(coords);
+
+    updateDownloadLink();
   });
 
   Array.prototype.forEach.call(document.getElementsByClassName('btn-rotate'), function addEventListener (button) {
     button.addEventListener('click', function slide (event) {
       event.preventDefault();
 
-      var angle = Number(this.dataset.angle) * 10;
+      var angle = Number(this.dataset.angle);
 
       var coords = gaza.getPaths().pop().getArray();
 
@@ -228,31 +230,6 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
       updateDownloadLink();
     });
   });
-
-  /*
-  function rotateLatLng (pointLat, pointLng, angle) {
-    var pos = map.getCenter();
-    var theX = pointLat;
-    var theY = pointLng;
-    var rotationTheta = angle;
-    var rotationOriginX = pos.lat();
-    var rotationOriginY = pos.lng();
-    var rotationThetaRad = rotationTheta*(Math.PI/180);
-
-    var newX;
-    var newY;
-
-    if (rotationOriginX == 0 && rotationOriginY == 0) {
-      newX = theX * Math.cos(rotationThetaRad) - Math.sin(rotationThetaRad) * theY;
-      newY = theX * Math.sin(rotationThetaRad) + Math.cos(rotationThetaRad) * theY;
-    } else {
-      newX = (theX - rotationOriginX) * Math.cos(rotationThetaRad) - (theY - rotationOriginY) * Math.sin(rotationTheta) + rotationOriginX;
-      newY = (theX - rotationOriginX) * Math.sin(rotationThetaRad) + (theY - rotationOriginY) * Math.cos(rotationTheta) + rotationOriginY;
-    }
-
-    return new google.maps.LatLng(newX,newY);
-  }
-  */
 
   // share buttons
   Array.prototype.forEach.call(document.getElementsByClassName('btn-share'), function addEventListener (button) {
