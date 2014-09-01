@@ -13,6 +13,6 @@
     "font-awesome": "~4.2.0",
     "google-maps-polygon-moveto": "git@github.com:bramus/google-maps-polygon-moveto.git",
     "jquery": "~2.1.1",
-    "google-maps-polygon-rotate": "~1.0.0"
+    "google-maps-polygon-rotate": "~1.0.1"
   }
 }
