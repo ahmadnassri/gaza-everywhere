@@ -140,9 +140,6 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     geodesic: true
   });
 
-  // move to center (in case of query string params)
-  //gaza.moveTo(map.getCenter());
-
   // update the download link
   updateDownloadLink();
 
@@ -158,7 +155,6 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     }
   });
 
-
   google.maps.event.addListener(map, 'dragend', movePoly);
   google.maps.event.addListener(map, 'zoom_changed', movePoly);
   google.maps.event.addListener(map, 'projection_changed', movePoly);
@@ -166,47 +162,10 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
 
   google.maps.event.addListener(gaza, 'dragend', updateDownloadLink);
 
-  var distanceTo = function (pointA, pointB) {
-    var distance, x0, y0, x1, y1, result;
-    x0 = pointA.lat();
-    y0 = pointA.lng();
-    x1 = pointB.lat();
-    y1 = pointB.lng();
-
-    return Math.sqrt(Math.pow(x0 - x1, 2) + Math.pow(y0 - y1, 2));
-  };
-
-  var rotatePoint = function (angle, point, origin) {
-    angle *= Math.PI / 180;
-    var radius = distanceTo(point, origin);
-    var theta = angle + Math.atan2(point.lng() - origin.lng(), point.lat() - origin.lat());
-    var x = origin.lat() + (radius * Math.cos(theta));
-    var y = origin.lng() + (radius * Math.sin(theta));
-    return new google.maps.LatLng(x, y);
-  };
-
-  var getCenter = function (polygonCoords) {
-    var bounds = new google.maps.LatLngBounds();
-    var i;
-
-    for (i = 0; i < polygonCoords.length; i++) {
-      bounds.extend(polygonCoords[i]);
-    }
-
-    // The Center of the Bermuda Triangle - (25.3939245, -72.473816)
-    return bounds.getCenter();
-  };
-
   google.maps.event.addListener(gaza, 'click', function rotate () {
-    var coords = gaza.getPaths().pop().getArray();
+    var origin = gaza.getCenter();
 
-    var origin = getCenter(coords);
-
-    coords.forEach(function (point, index) {
-      coords[index] = rotatePoint(10, point, origin);
-    });
-
-    gaza.setPaths(coords);
+    gaza.rotate(10, origin);
 
     updateDownloadLink();
   });
@@ -217,15 +176,9 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
 
       var angle = Number(this.dataset.angle);
 
-      var coords = gaza.getPaths().pop().getArray();
+      var origin = gaza.getCenter();
 
-      var origin = getCenter(coords);
-
-      coords.forEach(function (point, index) {
-        coords[index] = rotatePoint(angle, point, origin);
-      });
-
-      gaza.setPaths(coords);
+      gaza.rotate(angle, origin);
 
       updateDownloadLink();
     });
