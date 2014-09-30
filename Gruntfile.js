@@ -69,7 +69,7 @@ module.exports = function (grunt) {
           '.app/app.js': [
             'bower_components/google-maps-polygon-moveto/js/google.maps.Polygon.getBounds.js',
             'bower_components/google-maps-polygon-moveto/js/google.maps.Polygon.moveTo.js',
-            'bower_components/google-maps-polygon-rotate/dist/google.maps.Polygon.rotate.js',
+            'bower_components/google-maps-polygon-rotate/dist/google.maps.Polygon.rotate.min.js',
             'bower_components/jquery/dist/jquery.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'src/app.js'
@@ -164,7 +164,13 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
-        }
+        },
+
+        files: [
+          '.app/index.html',
+          '.app/style.css',
+          '.app/app.js'
+        ]
       }
     }
   });
