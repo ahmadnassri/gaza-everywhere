@@ -50,19 +50,6 @@ module.exports = function (grunt) {
       }
     },
 
-    uncss: {
-      options: {
-        htmlroot: '.app',
-        ignoreSheets: [/fonts.googleapis.com/, /maxcdn.bootstrapcdn.com/],
-      },
-
-      dist: {
-        files: {
-          '.app/style.css': ['.app/index.html']
-        }
-      }
-    },
-
     uglify: {
       dist: {
         files: {
@@ -79,25 +66,6 @@ module.exports = function (grunt) {
     },
 
     /* Quality Control */
-
-    jshint: {
-      options: {
-        jshintrc: '.config/jshintrc.json'
-      },
-
-      gruntfile: ['Gruntfile.js'],
-      dist: ['src/app.js'],
-    },
-
-    csslint: {
-      options: {
-        csslintrc: '.config/csslintrc.json'
-      },
-
-      dist: {
-        src: ['.app/style.css']
-      }
-    },
 
     /* Build Tools */
 
@@ -148,17 +116,16 @@ module.exports = function (grunt) {
     watch: {
       less: {
         files: ['src/style.less'],
-        tasks: ['less', 'autoprefixer', 'cssmin', 'csslint']
+        tasks: ['less', 'autoprefixer', 'cssmin']
       },
 
       gruntfile: {
-        files: ['Gruntfile.js'],
-        tasks: ['jshint:gruntfile']
+        files: ['Gruntfile.js']
       },
 
       js: {
         files: ['Gruntfile.js', 'src/app.js'],
-        tasks: ['jshint:dist', 'uglify']
+        tasks: ['uglify']
       },
 
       livereload: {
@@ -177,25 +144,18 @@ module.exports = function (grunt) {
 
   /* Define Tasks */
 
-  grunt.registerTask('check', [
-    'csslint',
-    'jshint'
-  ]);
-
   grunt.registerTask('build', [
     'clean',
     'imagemin',
     'htmlmin',
     'less',
-    'uncss',
     'autoprefixer',
     'cssmin',
     'uglify'
   ]);
 
   grunt.registerTask('default', [
-    'build',
-    'check'
+    'build'
   ]);
 
   grunt.registerTask('serve', [

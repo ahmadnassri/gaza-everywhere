@@ -1,43 +1,43 @@
-google.maps.event.addDomListener(window, 'load', function initialize() {
+google.maps.event.addDomListener(window, 'load', function initialize () {
   // variables
 
-  var search = document.getElementById('search');
-  var slider = document.getElementById('slider');
-  var download = document.getElementById('download');
-  var controls = document.getElementById('controls');
+  var search = document.getElementById('search')
+  var slider = document.getElementById('slider')
+  var download = document.getElementById('download')
+  var controls = document.getElementById('controls')
 
   var defaults = {
     zoom: 10,
     center: '31.407902,34.394186'
-  };
+  }
 
   // functions
 
   function movePoly () {
-    gaza.moveTo(map.getCenter());
-    updateDownloadLink();
+    gaza.moveTo(map.getCenter())
+    updateDownloadLink()
   }
 
   function updateDownloadLink () {
-    var coords = [];
+    var coords = []
     gaza.getPath().forEach(function (element, index) {
-      coords.push(element.toUrlValue());
-    });
+      coords.push(element.toUrlValue())
+    })
 
     // set the download link
-    download.href = 'http://maps.googleapis.com/maps/api/staticmap?maptype=' + map.getMapTypeId() + '&format=png32&center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom() + '&size=640x360&scale=2&path=color:0xFF0000|fillcolor:0xFF0000|weight:2|' + coords.join('|');
+    download.href = 'http://maps.googleapis.com/maps/api/staticmap?maptype=' + map.getMapTypeId() + '&format=png32&center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom() + '&size=640x360&scale=2&path=color:0xFF0000|fillcolor:0xFF0000|weight:2|' + coords.join('|')
 
     // modern browsers only
     if (history.pushState) {
-      var path = window.location.pathname + '?center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom();
+      var path = window.location.pathname + '?center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom()
 
       // update url
-      history.replaceState({}, document.title, path);
+      history.replaceState({}, document.title, path)
     }
 
     // update embed link
-    var code = document.getElementsByTagName('pre')[0];
-    code.innerHTML = '&lt;iframe width="1280" height="720" src="{url}" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;'.replace('{url}', window.location.href);
+    var code = document.getElementsByTagName('pre')[0]
+    code.innerHTML = '&lt;iframe width="1280" height="720" src="{url}" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;'.replace('{url}', window.location.href)
   }
 
   // polygon
@@ -83,18 +83,18 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     new google.maps.LatLng(31.48957771850194, 34.39990997314453),
     new google.maps.LatLng(31.53084824620859, 34.43836212158203),
     new google.maps.LatLng(31.59286607048565, 34.48986053466797)
-  ];
+  ]
 
   // get query string data
-  var query = window.location.search.substring(1).split('&');
+  var query = window.location.search.substring(1).split('&')
 
   for (var i in query) {
-    var param = query[i].split('=');
-    defaults[decodeURIComponent(param[0])] = decodeURIComponent(param[1]);
+    var param = query[i].split('=')
+    defaults[decodeURIComponent(param[0])] = decodeURIComponent(param[1])
   }
 
   // split coords
-  defaults.center = defaults.center.split(',');
+  defaults.center = defaults.center.split(',')
 
   // init map
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -112,7 +112,6 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
       position: google.maps.ControlPosition.TOP_RIGHT
     },
 
-
     panControl: true,
     panControlOptions: {
       position: google.maps.ControlPosition.LEFT_CENTER
@@ -122,10 +121,10 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     zoomControlOptions: {
       position: google.maps.ControlPosition.LEFT_CENTER
     }
-  });
+  })
 
   // assign search box
-  var searchBox = new google.maps.places.SearchBox(search);
+  var searchBox = new google.maps.places.SearchBox(search)
 
   // draw the polygon.
   var gaza = new google.maps.Polygon({
@@ -138,84 +137,84 @@ google.maps.event.addDomListener(window, 'load', function initialize() {
     fillOpacity: 0.35,
     draggable: true,
     geodesic: true
-  });
+  })
 
   // update the download link
-  updateDownloadLink();
+  updateDownloadLink()
 
   // events
 
   google.maps.event.addListener(searchBox, 'places_changed', function search () {
-    var places = searchBox.getPlaces();
+    var places = searchBox.getPlaces()
 
     if (places.length !== 0) {
-      map.setCenter(places[0].geometry.location);
-      map.setZoom(10);
-      gaza.moveTo(map.getCenter());
+      map.setCenter(places[0].geometry.location)
+      map.setZoom(10)
+      gaza.moveTo(map.getCenter())
     }
-  });
+  })
 
-  google.maps.event.addListener(map, 'dragend', movePoly);
-  google.maps.event.addListener(map, 'zoom_changed', movePoly);
-  google.maps.event.addListener(map, 'projection_changed', movePoly);
-  google.maps.event.addListener(map, 'zoom_changed', updateDownloadLink);
+  google.maps.event.addListener(map, 'dragend', movePoly)
+  google.maps.event.addListener(map, 'zoom_changed', movePoly)
+  google.maps.event.addListener(map, 'projection_changed', movePoly)
+  google.maps.event.addListener(map, 'zoom_changed', updateDownloadLink)
 
-  google.maps.event.addListener(gaza, 'dragend', updateDownloadLink);
+  google.maps.event.addListener(gaza, 'dragend', updateDownloadLink)
 
   google.maps.event.addListener(gaza, 'click', function rotate () {
-    var origin = gaza.getCenter();
+    var origin = gaza.getCenter()
 
-    gaza.rotate(10, origin);
+    gaza.rotate(10, origin)
 
-    updateDownloadLink();
-  });
+    updateDownloadLink()
+  })
 
   Array.prototype.forEach.call(document.getElementsByClassName('btn-rotate'), function addEventListener (button) {
     button.addEventListener('click', function slide (event) {
-      event.preventDefault();
+      event.preventDefault()
 
-      var angle = Number(this.dataset.angle);
+      var angle = Number(this.dataset.angle)
 
-      var origin = gaza.getCenter();
+      var origin = gaza.getCenter()
 
-      gaza.rotate(angle, origin);
+      gaza.rotate(angle, origin)
 
-      updateDownloadLink();
-    });
-  });
+      updateDownloadLink()
+    })
+  })
 
   // share buttons
   Array.prototype.forEach.call(document.getElementsByClassName('btn-share'), function addEventListener (button) {
     button.addEventListener('click', function click (event) {
-      event.preventDefault();
+      event.preventDefault()
 
-      var link = this.href;
+      var link = this.href
 
-      link = link.replace('{url}', window.location.href);
-      link = link.replace('{text}', encodeURIComponent('Gaza Everywhere: Compare the size of #Gaza to your city'));
+      link = link.replace('{url}', window.location.href)
+      link = link.replace('{text}', encodeURIComponent('Gaza Everywhere: Compare the size of #Gaza to your city'))
 
-      window.open(link, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+      window.open(link, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600')
 
-      return false;
-    });
-  });
-});
+      return false
+    })
+  })
+})
 
 function resizeContent () {
-  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-  var header = document.getElementsByTagName('header')[0].offsetHeight;
-  var panelFooter = document.getElementsByClassName('panel-footer')[0].offsetHeight;
-  var panelHeading = document.getElementsByClassName('panel-heading')[0].offsetHeight;
+  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+  var header = document.getElementsByTagName('header')[0].offsetHeight
+  var panelFooter = document.getElementsByClassName('panel-footer')[0].offsetHeight
+  var panelHeading = document.getElementsByClassName('panel-heading')[0].offsetHeight
 
   // resize viewport
-  var newHeight = screenHeight - (header + panelFooter + panelHeading + 30);
+  var newHeight = screenHeight - (header + panelFooter + panelHeading + 30)
 
   if (newHeight > 300) {
-    document.getElementById('map').style.height = newHeight + 'px';
+    document.getElementById('map').style.height = newHeight + 'px'
   }
 
-  document.getElementById('twitter').style.height = (screenHeight - (header + document.getElementsByClassName('list-group')[0].offsetHeight + 30 + 20 - 2)) + 'px';
+  document.getElementById('twitter').style.height = (screenHeight - (header + document.getElementsByClassName('list-group')[0].offsetHeight + 30 + 20 - 2)) + 'px'
 }
 
-window.addEventListener('load', resizeContent);
-window.addEventListener('resize', resizeContent);
+window.addEventListener('load', resizeContent)
+window.addEventListener('resize', resizeContent)
