@@ -13,7 +13,7 @@
     "grunt-contrib-connect": "^2.0.0",
     "grunt-contrib-cssmin": "~3.0.0",
     "grunt-contrib-htmlmin": "~2.1.0",
-    "grunt-contrib-imagemin": "^1.0.0",
+    "grunt-contrib-imagemin": "^3.0.0",
     "grunt-contrib-less": "^2.0.0",
     "grunt-contrib-uglify": "^4.0.0",
     "grunt-contrib-watch": "^1.0.0",
