@@ -1,12 +1,12 @@
 google.maps.event.addDomListener(window, 'load', function initialize () {
   // variables
 
-  var search = document.getElementById('search')
-  var slider = document.getElementById('slider')
-  var download = document.getElementById('download')
-  var controls = document.getElementById('controls')
+  const search = document.getElementById('search')
+  const slider = document.getElementById('slider')
+  const download = document.getElementById('download')
+  const controls = document.getElementById('controls')
 
-  var defaults = {
+  const defaults = {
     zoom: 10,
     center: '31.407902,34.394186'
   }
@@ -19,7 +19,7 @@ google.maps.event.addDomListener(window, 'load', function initialize () {
   }
 
   function updateDownloadLink () {
-    var coords = []
+    const coords = []
     gaza.getPath().forEach(function (element, index) {
       coords.push(element.toUrlValue())
     })
@@ -29,20 +29,20 @@ google.maps.event.addDomListener(window, 'load', function initialize () {
 
     // modern browsers only
     if (history.pushState) {
-      var path = window.location.pathname + '?center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom()
+      const path = window.location.pathname + '?center=' + map.getCenter().toUrlValue() + '&zoom=' + map.getZoom()
 
       // update url
       history.replaceState({}, document.title, path)
     }
 
     // update embed link
-    var code = document.getElementsByTagName('pre')[0]
+    const code = document.getElementsByTagName('pre')[0]
     code.innerHTML = '&lt;iframe width="1280" height="720" src="{url}" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;'.replace('{url}', window.location.href)
   }
 
   // polygon
 
-  var gazaCoords = [
+  const gazaCoords = [
     new google.maps.LatLng(31.594182039540698, 34.490203857421875),
     new google.maps.LatLng(31.540650975483548, 34.56693649291992),
     new google.maps.LatLng(31.533335603314153, 34.565391540527344),
@@ -86,10 +86,10 @@ google.maps.event.addDomListener(window, 'load', function initialize () {
   ]
 
   // get query string data
-  var query = window.location.search.substring(1).split('&')
+  const query = window.location.search.substring(1).split('&')
 
-  for (var i in query) {
-    var param = query[i].split('=')
+  for (const i in query) {
+    const param = query[i].split('=')
     defaults[decodeURIComponent(param[0])] = decodeURIComponent(param[1])
   }
 
@@ -124,7 +124,7 @@ google.maps.event.addDomListener(window, 'load', function initialize () {
   })
 
   // assign search box
-  var searchBox = new google.maps.places.SearchBox(search)
+  const searchBox = new google.maps.places.SearchBox(search)
 
   // draw the polygon.
   var gaza = new google.maps.Polygon({
@@ -145,7 +145,7 @@ google.maps.event.addDomListener(window, 'load', function initialize () {
   // events
 
   google.maps.event.addListener(searchBox, 'places_changed', function search () {
-    var places = searchBox.getPlaces()
+    const places = searchBox.getPlaces()
 
     if (places.length !== 0) {
       map.setCenter(places[0].geometry.location)
@@ -162,7 +162,7 @@ google.maps.event.addDomListener(window, 'load', function initialize () {
   google.maps.event.addListener(gaza, 'dragend', updateDownloadLink)
 
   google.maps.event.addListener(gaza, 'click', function rotate () {
-    var origin = gaza.getCenter()
+    const origin = gaza.getCenter()
 
     gaza.rotate(10, origin)
 
@@ -173,9 +173,9 @@ google.maps.event.addDomListener(window, 'load', function initialize () {
     button.addEventListener('click', function slide (event) {
       event.preventDefault()
 
-      var angle = Number(this.dataset.angle)
+      const angle = Number(this.dataset.angle)
 
-      var origin = gaza.getCenter()
+      const origin = gaza.getCenter()
 
       gaza.rotate(angle, origin)
 
@@ -188,7 +188,7 @@ google.maps.event.addDomListener(window, 'load', function initialize () {
     button.addEventListener('click', function click (event) {
       event.preventDefault()
 
-      var link = this.href
+      let link = this.href
 
       link = link.replace('{url}', window.location.href)
       link = link.replace('{text}', encodeURIComponent('Gaza Everywhere: Compare the size of #Gaza to your city'))
@@ -201,19 +201,17 @@ google.maps.event.addDomListener(window, 'load', function initialize () {
 })
 
 function resizeContent () {
-  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-  var header = document.getElementsByTagName('header')[0].offsetHeight
-  var panelFooter = document.getElementsByClassName('panel-footer')[0].offsetHeight
-  var panelHeading = document.getElementsByClassName('panel-heading')[0].offsetHeight
+  const screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+  const header = document.getElementsByTagName('header')[0].offsetHeight
+  const panelFooter = document.getElementsByClassName('panel-footer')[0].offsetHeight
+  const panelHeading = document.getElementsByClassName('panel-heading')[0].offsetHeight
 
   // resize viewport
-  var newHeight = screenHeight - (header + panelFooter + panelHeading + 30)
+  const newHeight = screenHeight - (header + panelFooter + panelHeading + 30)
 
   if (newHeight > 300) {
     document.getElementById('map').style.height = newHeight + 'px'
   }
-
-  document.getElementById('twitter').style.height = (screenHeight - (header + document.getElementsByClassName('list-group')[0].offsetHeight + 30 + 20 - 2)) + 'px'
 }
 
 window.addEventListener('load', resizeContent)
