@@ -15,7 +15,8 @@ module.exports = function (grunt) {
         },
 
         files: {
-          '.app/peace.svg': 'src/peace.svg'
+          '.app/peace.svg': 'src/peace.svg',
+          '.app/favicon.ico': 'src/favicon.ico'
         }
       }
     },
@@ -166,4 +167,4 @@ module.exports = function (grunt) {
     'default',
     'gh-pages'
   ])
-};
+}
