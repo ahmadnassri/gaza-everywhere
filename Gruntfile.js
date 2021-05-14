@@ -1,9 +1,7 @@
 module.exports = function (grunt) {
-  'use strict';
+  'use strict'
 
-  require('time-grunt')(grunt);
-
-  require('load-grunt-tasks')(grunt);
+  require('load-grunt-tasks')(grunt)
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -45,7 +43,7 @@ module.exports = function (grunt) {
     cssmin: {
       dist: {
         files: {
-          '.app/style.css': '.app/style.css',
+          '.app/style.css': '.app/style.css'
         }
       }
     },
@@ -140,7 +138,7 @@ module.exports = function (grunt) {
         ]
       }
     }
-  });
+  })
 
   /* Define Tasks */
 
@@ -152,20 +150,20 @@ module.exports = function (grunt) {
     'autoprefixer',
     'cssmin',
     'uglify'
-  ]);
+  ])
 
   grunt.registerTask('default', [
     'build'
-  ]);
+  ])
 
   grunt.registerTask('serve', [
     'default',
     'connect',
     'watch'
-  ]);
+  ])
 
   grunt.registerTask('deploy', [
     'default',
     'gh-pages'
-  ]);
+  ])
 };
