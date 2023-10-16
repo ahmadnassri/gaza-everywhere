@@ -52,12 +52,14 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          '.app/app.js': [
+          '.app/libs.js': [
             'bower_components/google-maps-polygon-moveto/js/google.maps.Polygon.getBounds.js',
             'bower_components/google-maps-polygon-moveto/js/google.maps.Polygon.moveTo.js',
             'bower_components/google-maps-polygon-rotate/dist/google.maps.Polygon.rotate.min.js',
             'bower_components/jquery/dist/jquery.js',
-            'bower_components/bootstrap/dist/js/bootstrap.js',
+            'bower_components/bootstrap/dist/js/bootstrap.js'
+          ],
+          '.app/app.js': [
             'src/app.js'
           ]
         }

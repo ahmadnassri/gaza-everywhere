@@ -1,4 +1,4 @@
-google.maps.event.addDomListener(window, 'load', function initialize () {
+function initializeMap () {
   // variables
 
   const search = document.getElementById('search')
@@ -198,7 +198,7 @@ google.maps.event.addDomListener(window, 'load', function initialize () {
       return false
     })
   })
-})
+}
 
 function resizeContent () {
   const screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
