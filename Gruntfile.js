@@ -21,6 +21,14 @@ module.exports = function (grunt) {
       }
     },
 
+    copy: {
+      misc: {
+        files: [
+          { src: 'src/CNAME', dest: '.app/', expand: true, flatten: true },
+        ]
+      }
+    },
+
     htmlmin: {
       dist: {
         options: {
@@ -149,6 +157,7 @@ module.exports = function (grunt) {
     'clean',
     'imagemin',
     'htmlmin',
+    'copy',
     'less',
     'autoprefixer',
     'cssmin',

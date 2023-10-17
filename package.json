@@ -12,6 +12,7 @@
     "grunt-build-control": "~0.7.1",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-connect": "^3.0.0",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^4.0.0",
     "grunt-contrib-htmlmin": "^3.1.0",
     "grunt-contrib-imagemin": "^4.0.0",
@@ -26,6 +27,7 @@
   "scripts": {
     "postinstall": "bower install",
     "start": "grunt serve",
+    "build": "grunt build",
     "deploy": "grunt deploy"
   }
 }
