@@ -15,6 +15,7 @@ module.exports = function (grunt) {
         },
 
         files: {
+          '.app/social.png': 'src/social.png',
           '.app/peace.svg': 'src/peace.svg',
           '.app/favicon.ico': 'src/favicon.ico'
         }
